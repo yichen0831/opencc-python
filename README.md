@@ -3,9 +3,9 @@
 ## OpenCC made with Python
 
 ## Introduction 簡介
-opencc-python is made by Python with the dictionary files of [OpenCC](https://github.com/BYVoid/OpenCC) which is developed by BYVoid<byvoid.kcp@gmail.com>.
+opencc-python is made by Python with the dictionary files of [OpenCC](https://github.com/BYVoid/OpenCC) which is developed by BYVoid(<byvoid.kcp@gmail.com>).
 
-opencc-python是用Python所寫, 使用由BYVoid<byvoid.kcp@gmail.com>所開發的[OpenCC](https://github.com/BYVoid/OpenCC)中的字典檔案.
+opencc-python是用Python所寫, 使用由BYVoid(<byvoid.kcp@gmail.com>)所開發的[OpenCC](https://github.com/BYVoid/OpenCC)中的字典檔案.
 
 opencc-python can run with Python2.7 and Python3.x
 
