@@ -9,9 +9,9 @@ with open(path.join(cwd, 'README.md'), encoding='utf-8') as f:
 
 
 setup(
-    name='opencc-python3',
+    name='opencc-python',
     version='0.1.0',
-    description='OpenCC made with Python3',
+    description='OpenCC made with Python',
     long_description=long_description,
     url='https://github.com/yichen0831/opencc-python',
     author='Yichen Huang (Eugene)',
@@ -22,6 +22,8 @@ setup(
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Chinese Conversion',
         'License :: OSI Approved :: Apache License 2.0',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
@@ -47,9 +49,6 @@ setup(
                    'dictionary/TSCharacters.txt',
                    'dictionary/TSPhrases.txt',
                    'dictionary/TWPhrases.txt',
-                   'dictionary/TWPhrasesIT.txt',
-                   'dictionary/TWPhrasesName.txt',
-                   'dictionary/TWPhrasesOther.txt',
                    'dictionary/TWPhrasesRev.txt',
                    'dictionary/TWVariants.txt',
                    'dictionary/TWVariantsRev.txt',
