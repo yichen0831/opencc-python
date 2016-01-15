@@ -3,9 +3,9 @@
 ## OpenCC made with Python3
 
 ## Introduction 簡介
-opencc-python is made by Python3 with the dictionary files of [OpenCC](https://github.com/BYVoid/OpenCC) which is developed by BYVoid <byvoid.kcp@gmail.com>.
+opencc-python is made by Python3 with the dictionary files of [OpenCC](https://github.com/BYVoid/OpenCC) which is developed by BYVoid<byvoid.kcp@gmail.com>.
 
-opencc-python是用Python3所寫, 使用由BYVoid <byvoid.kcp@gmail.com>所開發的[OpenCC](https://github.com/BYVoid/OpenCC)中的字典檔案.
+opencc-python是用Python3所寫, 使用由BYVoid<byvoid.kcp@gmail.com>所開發的[OpenCC](https://github.com/BYVoid/OpenCC)中的字典檔案.
 
 ## Installation 安裝
 Just copy the opencc folder to the project you are developing.
@@ -43,3 +43,8 @@ Conversions include 轉換包含:
 'tw2s': Traditional Chinese (Taiwan standard) to Simplified Chinese
 
 'tw2sp': Traditional Chinese (Taiwan standard) to Simplified Chinese (with phrases)
+
+## Issues 問題
+When there are more than one conversion avaiable, only the first one is taken.
+
+當轉換有兩個以上的字詞可能時, 程式只會使用第一個.
