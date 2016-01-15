@@ -1,0 +1,22 @@
+{
+  "name": "Traditional Chinese to Simplified Chinese",
+  "segmentation": {
+    "type": "mmseg",
+    "dict": {
+      "type": "txt",
+      "file": "TSPhrases.txt"
+    }
+  },
+  "conversion_chain": [{
+    "dict": {
+      "type": "group",
+      "dicts": [{
+        "type": "txt",
+        "file": "TSPhrases.txt"
+      }, {
+        "type": "txt",
+        "file": "TSCharacters.txt"
+      }]
+    }
+  }]
+}
