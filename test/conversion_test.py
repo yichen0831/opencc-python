@@ -32,8 +32,8 @@ class OpenCCTest(unittest.TestCase):
 
     def test_s2twp(self):
         self.openCC.set_conversion('s2twp')
-        words = '香烟（英语：Cigarette），为烟草制品的一种。鼠标是一种很常见及常用的电脑输入设备。'
-        self.assertEqual(self.openCC.convert(words), '香菸（英語：Cigarette），為菸草製品的一種。滑鼠是一種很常見及常用的電腦輸入裝置。')
+        words = '香烟（英语：Cigarette），为烟草制品的一种。內存是一种很常见及常用的电脑输入设备。'
+        self.assertEqual(self.openCC.convert(words), '香菸（英語：Cigarette），為菸草製品的一種。記憶體是一種很常見及常用的電腦輸入裝置。')
 
     def test_t2hk(self):
         self.openCC.set_conversion('t2hk')
@@ -57,8 +57,8 @@ class OpenCCTest(unittest.TestCase):
 
     def test_tw2sp(self):
         self.openCC.set_conversion('tw2sp')
-        words = '香菸（英語：Cigarette），為菸草製品的一種。滑鼠是一種很常見及常用的電腦輸入裝置。'
-        self.assertEqual(self.openCC.convert(words), '香烟（英语：Cigarette），为烟草制品的一种。鼠标是一种很常见及常用的电脑输入设备。')
+        words = '香菸（英語：Cigarette），為菸草製品的一種。記憶體是一種很常見及常用的電腦輸入裝置。'
+        self.assertEqual(self.openCC.convert(words), '香烟（英语：Cigarette），为烟草制品的一种。内存是一种很常见及常用的电脑输入设备。')
 
 
 if __name__ == '__main__':
