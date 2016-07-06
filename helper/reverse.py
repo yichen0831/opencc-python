@@ -33,7 +33,7 @@ def reverse(rev_inputs=REV_INPUTS):
         output_file = in_file + 'Rev.txt'
         input_file = os.path.join(dirname, DICT_DIRECTORY, input_file)
         output_file = os.path.join(dirname, DICT_DIRECTORY, output_file)
-        with open(input_file, 'r') as f:
+        with open(input_file, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
                 split = line.split('\t')
@@ -47,7 +47,7 @@ def reverse(rev_inputs=REV_INPUTS):
                         reversed_dict[char].append(term1)
                     else:
                         reversed_dict[char] = [term1]
-        with open(output_file, 'w') as f:
+        with open(output_file, 'w', encoding='utf-8') as f:
             for key in reversed_dict:
                 line = key + '\t' + ' '.join(reversed_dict[key]) + '\n'
                 f.write(line)
