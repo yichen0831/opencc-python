@@ -21,6 +21,12 @@ Or run (require administration privilege)或是執行(需要管理者權限):
 
     python setup.py install
 
+The package can also be instally from pypi by issuing:
+
+套件也可從pypi安裝, 使用指令:
+
+    pip install opencc-python-reimplemented
+
 
 ## Usage 使用方式
 

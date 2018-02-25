@@ -8,7 +8,7 @@ with open(path.join(cwd, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-        name='opencc-python',
+        name='opencc-python-reimplemented',
         version='0.1.0',
         description='OpenCC made with Python',
         long_description=long_description,
@@ -17,10 +17,10 @@ setup(
         author_email='yichen0831@gmail.com',
         license='Apache License',
         classifiers=[
-            'Development Status :: 3 -Alpha',
+            'Development Status :: 3 - Alpha',
             'Intended Audience :: Developers',
-            'Topic :: Software Development :: Chinese Conversion',
-            'License :: OSI Approved :: Apache License 2.0',
+            'Topic :: Software Development :: Libraries',
+            'License :: OSI Approved :: Apache Software License',
             'Programming Language :: Python :: 2',
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
