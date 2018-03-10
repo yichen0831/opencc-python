@@ -9,7 +9,7 @@ with open(path.join(cwd, 'README.md'), encoding='utf-8') as f:
 
 setup(
         name='opencc-python-reimplemented',
-        version='0.1.0',
+        version='0.1.1',
         description='OpenCC made with Python',
         long_description=long_description,
         url='https://github.com/yichen0831/opencc-python',
@@ -35,6 +35,7 @@ setup(
         install_requires=[],
         package_data={
             'opencc': [
+                'README.md',
                 'LICENSE',
                 'NOTICE.txt',
                 'config/hk2s.json', 'config/s2hk.json', 'config/s2t.json',
