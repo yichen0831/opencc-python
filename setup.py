@@ -2,16 +2,15 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-cwd = path.abspath(path.dirname(__file__))
-
-with open(path.join(cwd, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+def readme():
+    with open('README.md') as f:
+        return f.read()
 
 setup(
         name='opencc-python-reimplemented',
-        version='0.1.1',
+        version='0.1.2',
         description='OpenCC made with Python',
-        long_description=long_description,
+        long_description=readme(),
         url='https://github.com/yichen0831/opencc-python',
         author='Yichen Huang (Eugene)',
         author_email='yichen0831@gmail.com',
