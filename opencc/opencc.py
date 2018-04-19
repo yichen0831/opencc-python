@@ -49,7 +49,8 @@ class OpenCC:
         self.dict_cache = dict()
         # List of sentence separators from OpenCC PhraseExtract.cpp. None of these separators are allowed as
         # part of a dictionary entry
-        self.split_chars_re = re.compile(r'(\s+|-|,|\.|\?|!|\*|　|，|。|、|；|：|？|！|…|“|”|「|」|—|－|（|）|《|》|．|／|＼)')
+        self.split_chars_re = re.compile(
+            r'(\s+|-|,|\.|\?|!|\*|　|，|。|、|；|：|？|！|…|“|”|‘|’|『|』|「|」|﹁|﹂|—|－|（|）|《|》|〈|〉|～|．|／|＼|︒|︑|︔|︓|︿|﹀|︹|︺|︙|︐|［|﹇|］|﹈|︕|︖|︰|︳|︴|︽|︾|︵|︶|｛|︷|｝|︸|﹃|﹄|【|︻|】|︼)')
         if self.conversion is not None:
             self._init_dict()
 
