@@ -8,7 +8,7 @@ def readme():
 
 setup(
         name='opencc-python-reimplemented',
-        version='0.1.2',
+        version='0.1.3',
         description='OpenCC made with Python',
         long_description=readme(),
         url='https://github.com/yichen0831/opencc-python',
