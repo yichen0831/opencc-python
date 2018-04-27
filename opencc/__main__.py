@@ -6,13 +6,18 @@ from opencc import OpenCC
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-i', '--input', metavar='<file>',
                         help='Read original text from <file>.')
     parser.add_argument('-o', '--output', metavar='<file>',
                         help='Write converted text to <file>.')
     parser.add_argument('-c', '--config', metavar='<file>',
                         help='Configuration file')
+    parser.add_argument('--in-enc', metavar='<encoding>', default='UTF-8',
+                        help='Encoding for input')
+    parser.add_argument('--out-enc', metavar='<encoding>', default='UTF-8',
+                        help='Encoding for output')
     args = parser.parse_args()
 
     if args.config is None:
@@ -21,19 +26,12 @@ def main():
 
     cc = OpenCC(args.config)
 
-    if args.input is not None:
-        with open(args.input) as f:
-            input_str = f.read()
-    else:
-        input_str = sys.stdin.read()
-
+    with open(args.input if args.input else 0, encoding=args.in_enc) as f:
+        input_str = f.read()
     output_str = cc.convert(input_str)
-
-    if args.output is not None:
-        with open(args.output, 'w') as f:
-            f.write(output_str)
-    else:
-        sys.stdout.write(output_str)
+    with open(args.output if args.output else 1, 'w',
+              encoding=args.out_enc) as f:
+        f.write(output_str)
 
     return 0
 
