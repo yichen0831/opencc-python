@@ -4,7 +4,7 @@ Open chinese convert (OpenCC) in pure Python.
 
 ## Introduction 簡介
 
-[opencc-python](https://github.com/yichen0831/opencc-python) 是用純 Python 所寫，使用由BYVoid(<byvoid.kcp@gmail.com>)所開發的[OpenCC](https://github.com/BYVoid/OpenCC)中的字典檔案。
+[opencc-python](https://github.com/yichen0831/opencc-python) 是用純 Python 所寫，使用由 BYVoid(<byvoid.kcp@gmail.com>) 所開發的 [OpenCC](https://github.com/BYVoid/OpenCC) 中的字典檔案。
 opencc-python 可以支援 Python2.7 及 Python3.x。
 
 [opencc-python](https://github.com/yichen0831/opencc-python) is made by pure Python with the dictionary files of [OpenCC](https://github.com/BYVoid/OpenCC) which is developed by BYVoid(<byvoid.kcp@gmail.com>).
@@ -13,7 +13,7 @@ opencc-python can run with Python2.7 and Python3.x.
 
 ## Installation 安裝
 
-將 `opencc` 這個目錄複製到你正在開發的專案中即可，或是執行(需要管理者權限)：
+將 `opencc` 這個目錄複製到你正在開發的專案中即可，或是執行（需要管理者權限）：
 
 ```sh
 python setup.py install
