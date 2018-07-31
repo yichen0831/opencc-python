@@ -1,6 +1,6 @@
 # 開放中文轉換（Pure Python）
 
-Open chinese convert (OpenCC) in pure Python.
+Open Chinese convert (OpenCC) in pure Python.
 
 ## Introduction 簡介
 
@@ -25,13 +25,13 @@ python setup.py install
 pip install opencc-python-reimplemented
 ```
 
-Copy the `opencc` folder to the your project, or run (admin required)
+Copy the `opencc` folder to your project, or run (admin required)
 
 ```sh
 python setup.py install
 ```
 
-The package can also be instally from [PyPI](https://pypi.org/project/opencc-python-reimplemented/) by issuing:
+The package can also be installed from [PyPI](https://pypi.org/project/opencc-python-reimplemented/) by issuing:
 
 ```sh
 pip install opencc-python-reimplemented
@@ -74,4 +74,4 @@ converted = cc.convert(to_convert)
 
 當轉換有兩個以上的字詞可能時，程式只會使用第一個。
 
-When there are more than one conversion avaiable, only the first one is taken.
+When there is more than one conversion available, only the first one is taken.
