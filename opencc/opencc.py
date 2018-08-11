@@ -90,7 +90,7 @@ class OpenCC:
         """
         tree = StringTree(string)
         for c_dict in dictionary:
-            if isinstance(c_dict, dict):
+            if isinstance(c_dict, tuple):
                 tree.convert_tree(c_dict)
                 if not is_dict_group:
                     # Don't reform the string here if the dictionary list is part of a group
@@ -134,12 +134,15 @@ class OpenCC:
             else:
                 if not item in self.dict_cache:
                     map_dict = {}
+                    max_len = 1
                     with io.open(item, "r", encoding="utf-8") as f:
                         for line in f:
                             key, value = line.strip().split('\t')
                             map_dict[key] = value
-                    chain_data.append(map_dict)
-                    self.dict_cache[item] = map_dict
+                            if len(key) > max_len:
+                                max_len = len(key)
+                    chain_data.append((max_len, map_dict))
+                    self.dict_cache[item] = (max_len, map_dict)
                 else:
                     chain_data.append(self.dict_cache[item])
 
@@ -192,8 +195,8 @@ class StringTree:
         right against test_dict. If an entry is found, place the remaining
         string portion on the left and right into sub-trees and recurively
         convert each.
-        :param test_dict: the dict currently being applied againt
-                        the string
+        :param test_dict: a tuple of the max key length and dict currently being
+                          applied against the string
         :return: None
         """
         if self.matched == True:
@@ -202,11 +205,11 @@ class StringTree:
             if self.right is not None:
                 self.right.convert_tree(test_dict)
         else:
-            test_len = self.string_len
+            test_len = min (self.string_len, test_dict[0])
             while test_len != 0:
                 # Loop through trying successively smaller substrings in the dictionary
                 for i in range(0, self.string_len - test_len + 1):
-                    if self.string[i:i+test_len] in test_dict:
+                    if self.string[i:i+test_len] in test_dict[1]:
                         # Match found.
                         if i > 0:
                             # Put everything to the left of the match into the left sub-tree and further process it
@@ -217,7 +220,7 @@ class StringTree:
                             self.right = StringTree(self.string[i+test_len:])
                             self.right.convert_tree(test_dict)
                         # Save the dictionary value in this tree
-                        value = test_dict[self.string[i:i+test_len]]
+                        value = test_dict[1][self.string[i:i+test_len]]
                         if len(value.split(' ')) > 1:
                             # multiple mapping, use the first one for now
                             value = value.split(' ')[0]
