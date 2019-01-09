@@ -1,4 +1,4 @@
-# 開放中文轉換（Pure Python）
+﻿# 開放中文轉換（Pure Python）
 
 Open chinese convert (OpenCC) in pure Python.
 
@@ -38,6 +38,7 @@ pip install opencc-python-reimplemented
 ```
 
 ## Usage 使用方式
+### Code
 
 ``` python
 from opencc import OpenCC
@@ -46,6 +47,29 @@ cc = OpenCC('s2t')  # convert from Simplified Chinese to Traditional Chinese
 # cc.set_conversion('s2tw')
 to_convert = '开放中文转换'
 converted = cc.convert(to_convert)
+```
+### Command Line
+
+```sh
+usage: python -m opencc [-h] [-i <file>] [-o <file>] [-c <conversion>]
+                        [--in-enc <encoding>] [--out-enc <encoding>]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i <file>, --input <file>
+                        Read original text from <file>. (default: None = STDIN)
+  -o <file>, --output <file>
+                        Write converted text to <file>. (default: None = STDOUT)
+  -c <conversion>, --config <conversion>
+                        Conversion (default: None)
+  --in-enc <encoding>   Encoding for input (default: UTF-8)
+  --out-enc <encoding>  Encoding for output (default: UTF-8)
+
+example with UTF-8 encoded file:
+
+  python -m opencc -c s2t -i my_simplified_input_file.txt -o my_traditional_output_file.txt
+
+See https://docs.python.org/3/library/codecs.html#standard-encodings for list of encodings.
 ```
 
 ### Conversions 轉換
@@ -74,4 +98,4 @@ converted = cc.convert(to_convert)
 
 當轉換有兩個以上的字詞可能時，程式只會使用第一個。
 
-When there are more than one conversion avaiable, only the first one is taken.
+When there are more than one conversion available, only the first one is taken.
