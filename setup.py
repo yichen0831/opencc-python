@@ -11,6 +11,7 @@ setup(
         version='0.1.4',
         description='OpenCC made with Python',
         long_description=readme(),
+        long_description_content_type='text/markdown',
         url='https://github.com/yichen0831/opencc-python',
         author='Yichen Huang (Eugene)',
         author_email='yichen0831@gmail.com',
