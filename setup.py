@@ -2,13 +2,15 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
+
 def readme():
     with open('README.md', encoding='utf-8') as f:
         return f.read()
 
+
 setup(
         name='opencc-python-reimplemented',
-        version='0.1.4',
+        version='0.1.5',
         description='OpenCC made with Python',
         long_description=readme(),
         long_description_content_type='text/markdown',
@@ -36,7 +38,7 @@ setup(
         package_data={
             'opencc': [
                 'README.md',
-                'LICENSE',
+                'LICENSE.txt',
                 'NOTICE.txt',
                 'config/hk2s.json', 'config/s2hk.json', 'config/s2t.json',
                 'config/s2tw.json', 'config/s2twp.json', 'config/t2hk.json',
