@@ -77,30 +77,24 @@ class OpenCC:
         # Join it all together to return a result
         return "".join(result)
 
-    def _convert(self, string, dictionary = [], is_dict_group = False):
+    def _convert(self, string, dictionary = []):
         """
         Convert string from Simplified Chinese to Traditional Chinese or vice versa
         If a dictionary is part of a group of dictionaries, stop conversion on a word
         after the first match is found.
         :param string: the input string
         :param dictionary: list of dictionaries to be applied against the string
-        :param is_dict_group: indicates if this is a group of dictionaries in which only
-                              the first match in the dict group should be used
         :return: converted string
         """
         tree = StringTree(string)
         for c_dict in dictionary:
             if isinstance(c_dict, tuple):
-                tree.create_parse_tree(c_dict)
-                if not is_dict_group:
-                    # Don't re-form the string here if the dictionary list is part of a group
-                    # Recreate the tree for next loop iteration
-                    tree = StringTree("".join(tree.inorder()))
+                # Pass dictionary as a list with one entry
+                tree.create_parse_tree([c_dict])
             else:
-                # This is a list of dictionaries. Call back in with the dictionary
-                # list but specify that this is a group
-                # This is the only recursion instance
-                tree = StringTree(self._convert("".join(tree.inorder()), c_dict, True))
+                # This is a list of dictionaries.
+                tree.create_parse_tree(c_dict)
+            tree = StringTree("".join(tree.inorder()))
         return "".join(tree.inorder())
 
     def _init_dict(self):
@@ -135,15 +129,20 @@ class OpenCC:
             else:
                 if not item in self.dict_cache:
                     map_dict = {}
+                    # Default max key length to smallest possible value
                     max_len = 1
+                    # Default min key length to very large value
+                    min_len = 1000
                     with io.open(item, "r", encoding="utf-8") as f:
                         for line in f:
                             key, value = line.strip().split('\t')
                             map_dict[key] = value
                             if len(key) > max_len:
                                 max_len = len(key)
-                    chain_data.append((max_len, map_dict))
-                    self.dict_cache[item] = (max_len, map_dict)
+                            if len(key) < min_len:
+                                min_len = len(key)
+                    chain_data.append((max_len, min_len, map_dict))
+                    self.dict_cache[item] = (max_len, min_len, map_dict)
                 else:
                     chain_data.append(self.dict_cache[item])
 
@@ -207,38 +206,44 @@ class StringTree(object):
     def __init__(self, string):
         self.root = TreeNode(string)
 
-    def create_parse_tree(self, test_dict):
+    def create_parse_tree(self, test_dict_list):
         """
         Compare smaller and smaller sub-strings going from left to
-        right against test_dict. If an entry is found, push the remaining
-        string portions on to a stack and indicate if they are to
-        the left or right of the match. Pop the last one off the stack and
-        repeat the process. The tree is completely built once there are no more
-        items on the stack. This is a non-recursive method to build the parse
-        tree.
-        :param test_dict: a tuple of the max key length and dict currently being
-                        applied against the string
+        rightin root node value against a test_dict_list entry. If match is found,
+        create tree nodes for remaining left and right string portions and place
+        these nodes on a stack for processing.
+
+        :param test_dict_list: a list of tuples of the max key length and dict
+                        currently being applied against the string
         """
-        # Stack to hold nodes with unmatched strings
-        stack = self.unmatched_nodes()
+        # Stacks to hold nodes with unmatched strings
+        working_stack = [self.root]
+        unmatched_stack =[]
 
         # process stack
-        while stack:
-            curr = stack.pop()
-            value, lstring, rstring, test_len = self.__findMatch(curr.value, test_dict, curr.length_hint)
-            if (value):
-                curr.set_value(value)
-                curr.set_hint(None)
-            else:
-                curr.set_matched(False)
-            if (lstring):
-                node = TreeNode(lstring, test_len)
-                stack.append(node)
-                curr.set_branch(TreeNode.LEFT, node)
-            if (rstring):
-                node = TreeNode(rstring, test_len)
-                stack.append(node)
-                curr.set_branch(TreeNode.RIGHT, node)
+        for test_dict in test_dict_list:
+            while working_stack:
+                curr = working_stack.pop()
+                value, lstring, rstring, test_len = self.__findMatch(curr.value, test_dict, curr.length_hint)
+                if (value):
+                    curr.set_value(value)
+                    curr.set_hint(None)
+                    curr.set_matched(True)
+                    if (lstring):
+                        node = TreeNode(lstring, test_len)
+                        working_stack.append(node)
+                        curr.set_branch(TreeNode.LEFT, node)
+                    if (rstring):
+                        node = TreeNode(rstring, test_len)
+                        working_stack.append(node)
+                        curr.set_branch(TreeNode.RIGHT, node)
+                else:
+                    unmatched_stack.append(curr)
+                    curr.length_hint = None
+            # swap stacks
+            temp = working_stack
+            working_stack = unmatched_stack
+            unmatched_stack = temp
 
     def inorder(self):
         """
@@ -262,33 +267,11 @@ class StringTree(object):
                 break
         return return_val
 
-    def unmatched_nodes(self):
-        """
-        Do a non-recursive inorder traversal of the tree.
-        :return: list of nodes with unmatched value strings
-        """
-        return_val = []
-        stack = []
-        curr = self.root
-
-        while True:
-            while curr:
-                stack.append(curr)
-                curr = curr.branch[TreeNode.LEFT]
-
-            if stack:
-                curr = stack.pop()
-                if not curr.matched:
-                    return_val.append(curr)
-                curr = curr.branch[TreeNode.RIGHT]
-            else:
-                break
-        return return_val
-
     def __findMatch(self, string, test_dict, hint = None):
         """
         Compare smaller and smaller sub-strings going from left to
-        right against test_dict. If an entry is found,
+        right against test_dict. If an entry is found, return it as well
+        as the remaining string(s) and the test length.
 
         :param cstring:  the string to find a match
         :param test_dict: a tuple of the max key length and dict currently being
@@ -302,10 +285,11 @@ class StringTree(object):
         test_len = min (string_len, test_dict[0])
         if hint:
             test_len = min (test_len, hint)
-        while test_len != 0:
+        min_len = test_dict[1]
+        while test_len >= min_len:
             # Loop through trying successively smaller substrings in the dictionary
             for i in range(0, string_len - test_len + 1):
-                if string[i:i+test_len] in test_dict[1]:
+                if string[i:i+test_len] in test_dict[2]:
                     # Match found.
                     if i > 0:
                         # Put everything to the left of the match into lstring
@@ -314,7 +298,7 @@ class StringTree(object):
                         # Put everything to the right of the match into rstring
                         rstring = string[i+test_len:]
                     # Save the dictionary value
-                    value = test_dict[1][string[i:i+test_len]]
+                    value = test_dict[2][string[i:i+test_len]]
                     if len(value.split(' ')) > 1:
                         # multiple mapping, use the first one for now
                         value = value.split(' ')[0]
