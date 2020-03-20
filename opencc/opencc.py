@@ -88,12 +88,7 @@ class OpenCC:
         """
         tree = StringTree(string)
         for c_dict in dictionary:
-            if isinstance(c_dict, tuple):
-                # Pass dictionary as a list with one entry
-                tree.create_parse_tree([c_dict])
-            else:
-                # This is a list of dictionaries.
-                tree.create_parse_tree(c_dict)
+            tree.create_parse_tree(c_dict)
             tree = StringTree("".join(tree.inorder()))
         return "".join(tree.inorder())
 
@@ -118,6 +113,10 @@ class OpenCC:
 
         self._dict_chain_data = []
         self._add_dictionaries(self._dict_chain, self._dict_chain_data)
+        # Make sure all dictionaries are in a list
+        for index, c_dict in enumerate(self._dict_chain_data):
+           if isinstance(c_dict, tuple):
+               self._dict_chain_data[index] = [c_dict]
         self._dict_init_done = True
 
     def _add_dictionaries(self, chain_list, chain_data):
