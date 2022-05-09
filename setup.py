@@ -10,7 +10,7 @@ def readme():
 
 setup(
         name='opencc-python-reimplemented',
-        version='0.1.5',
+        version='0.1.6',
         description='OpenCC made with Python',
         long_description=readme(),
         long_description_content_type='text/markdown',
