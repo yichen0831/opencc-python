@@ -1,10 +1,10 @@
 {
-  "name": "Traditional Chinese (Hong Kong variant) to Simplified Chinese",
+  "name": "Traditional Chinese (Hong Kong variant) to Traditional Chinese",
   "segmentation": {
     "type": "mmseg",
     "dict": {
       "type": "txt",
-      "file": "TSPhrases.txt"
+      "file": "HKVariantsRevPhrases.txt"
     }
   },
   "conversion_chain": [{
@@ -16,17 +16,6 @@
       }, {
         "type": "txt",
         "file": "HKVariantsRev.txt"
-      }]
-    }
-  }, {
-    "dict": {
-      "type": "group",
-      "dicts": [{
-        "type": "txt",
-        "file": "TSPhrases.txt"
-      }, {
-        "type": "txt",
-        "file": "TSCharacters.txt"
       }]
     }
   }]
