@@ -37,7 +37,7 @@ class OpenCC:
         """
         init OpenCC
         :param conversion: the conversion of usage, options are
-         'hk2s', 's2hk', 's2t', 's2tw', 's2twp', 't2hk', 't2s', 't2tw', 'tw2s', and 'tw2sp'
+         'hk2s', 's2hk', 's2t', 's2tw', 's2twp', 't2hk', 't2s', 't2tw', 'tw2s', 'tw2sp', etc
          check the json file names in config directory
         :return: None
         """

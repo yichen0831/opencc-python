@@ -12,16 +12,14 @@
       "type": "group",
       "dicts": [{
         "type": "txt",
+        "file": "TWPhrasesRev.txt"
+      }, {
+        "type": "txt",
         "file": "TWVariantsRevPhrases.txt"
       }, {
         "type": "txt",
         "file": "TWVariantsRev.txt"
       }]
-    }
-  }, {
-    "dict": {
-      "type": "txt",
-      "file": "TWPhrasesRev.txt"
     }
   }, {
     "dict": {
